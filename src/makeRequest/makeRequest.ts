@@ -1,6 +1,6 @@
 const url = "https://graphqlzero.almansi.me/api";
 
-export const makeRequest = async (query) => {
+export const makeRequest = async (query: string) => {
   const res = await fetch(url, {
     method: "POST",
     headers: {
