@@ -1,0 +1,31 @@
+https://youtu.be/BVEm3IjrgGI?si=gcDn6fOlXNwMeRT0	GraphQL для фронтенд разработчиков
+
+GraphQL - язык запросов (подобно SQL)
+строгая типизация
+может использоваться поверх REST API
+спецификация компании Facrbook	https://spec.graphql.org/
+
+Преимущества над REST API:
+	одна ссылка для всех запросов
+	один запрос ко многим сущностям
+	в респонсе только запрашиваемая информация
+	тело запроса определяет ответ сервера
+
+Типы запросов:
+	query - получение данных
+	mutation - создание/изменение/удаление
+	subscription - подписка на обновление
+
+Запросы от frontend:
+	метод POST для всех запросов
+	'Content-Type': 'application/json'
+	запросы могут идти нативно или через библиотеку: Apollo GraphQL, Facebook Relay
+
+GraphQL playground for chrome - расширение для хрома
+https://rickandmortyapi.com/graphql
+
+в нижней части плейграунда есть вкладка Query Variables
+
+17.00
+	
+
