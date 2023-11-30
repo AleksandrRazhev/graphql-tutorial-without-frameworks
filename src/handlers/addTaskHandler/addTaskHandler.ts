@@ -1,18 +1,19 @@
 import { makeRequest } from "../../makeRequest";
 import { printTodo } from "../../printTodo";
 
-export async function addTaskHandler(event) {
+export async function addTaskHandler(event: SubmitEvent) {
   event.preventDefault();
-  if (!this.taskname.value) return;
+  const element: HTMLFormElement = this;
+
   const newTaskQuery = `mutation CreateTodo {
-          createTodo(input:{title: "${this.taskname.value}", completed: false}){
-            title
-            completed
-            id
-          }
-        }`;
+createTodo(input:{title: "${element.taskname.value}", completed: false}){
+  title
+  completed
+  id
+}
+}`;
 
   const data = await makeRequest(newTaskQuery);
   printTodo(data.data.createTodo);
-  this.reset();
+  element.reset();
 }

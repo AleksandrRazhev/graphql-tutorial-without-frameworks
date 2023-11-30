@@ -1,18 +1,20 @@
-import { makeRequest } from "../../makeRequest/makeRequest";
+import { makeRequest } from "../../makeRequest";
 
-export async function handleTodoStatus() {
-  const todoId = this.parentElement.dataset.id;
+export async function handleTodoStatus(event: Event) {
+  const element: HTMLInputElement = this;
+  if (!element.parentElement) return;
+  const todoId = element.parentElement.dataset.id;
 
   const changeStatusQuery = `mutation ChangeStatus {
-      updateTodo(id: "${todoId}", input: {completed: ${this.checked}}) {
+    updateTodo(id: "${todoId}", input: {completed: ${element.checked}}) {
           completed
-      }
+        }
   }`;
 
   const data = await makeRequest(changeStatusQuery);
   if (data.data.updateTodo.completed) {
-    this.setAttribute("checked", "true");
+    element.setAttribute("checked", "true");
   } else {
-    this.removeAttribute("checked");
+    element.removeAttribute("checked");
   }
 }

@@ -1,37 +1,14 @@
 import { addTaskHandler } from "./handlers/addTaskHandler";
-import { makeRequest } from "./makeRequest";
-import { printTodo } from "./printTodo";
+import { findTodos } from "./handlers/findTodos";
+import { printAllTodos } from "./printAllTodos";
 
 const forms: HTMLCollectionOf<HTMLFormElement> = document.forms;
 
 const addForm = forms.namedItem("addtask");
 const searchForm = forms.namedItem("findtask");
-const todos = document.getElementById("todos");
 
-if (addForm && searchForm && todos) {
+if (addForm && searchForm) {
   addForm.addEventListener("submit", addTaskHandler);
-  // searchForm.addEventListener("submit", findTodos);
-
-  makeRequest(`query Todos {
-        todos {
-          data {
-            id
-            title
-            completed
-            user {
-              id
-              name
-              address {
-                city
-              }
-            }
-          }
-        }
-      }`).then((res) => {
-    const data = res.data.todos.data;
-    console.log(data);
-    if (Array.isArray(data)) {
-      data.forEach((todo) => printTodo(todo));
-    }
-  });
+  searchForm.addEventListener("submit", findTodos);
+  printAllTodos();
 }

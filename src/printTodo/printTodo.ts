@@ -1,10 +1,23 @@
 import { handleTodoStatus } from "../handlers/handleTodoStatus";
 import { handleDeleteTodo } from "../handlers/handleDeleteTodo";
 
-export function printTodo({ title, completed = false, id = "", user = {} }) {
+interface IPrintTodo {
+  title: string;
+  completed: boolean;
+  id: string;
+  user: { name: string };
+}
+
+export function printTodo({
+  title = "unknown title",
+  completed = false,
+  id = "",
+  user = { name: "unknown name" },
+}: IPrintTodo) {
   const li = document.createElement("li");
   li.className = "list-group-item";
-  li.innerHTML = `&nbsp; ${title} | ID: ${id} | by <b>${user.name}</b>`;
+  if ("name" in user)
+    li.innerHTML = `&nbsp; ${title} | ID: ${id} | by <b>${user.name}</b>`;
   li.setAttribute("data-id", id);
 
   const checkbox = document.createElement("input");
@@ -21,5 +34,6 @@ export function printTodo({ title, completed = false, id = "", user = {} }) {
   del.addEventListener("click", handleDeleteTodo);
   li.append(del);
 
-  todos.prepend(li);
+  const todos = document.getElementById("todos");
+  if (todos) todos.prepend(li);
 }
